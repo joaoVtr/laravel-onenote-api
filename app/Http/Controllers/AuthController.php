@@ -18,10 +18,11 @@ class AuthController extends Controller
         $user = User::create($data); 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return [
+        $dt = [
             'user'=>$user,
             'token'=>$token
         ];
+        return response()->json($dt, 200);
     }
 
     public function login(Request $request){
