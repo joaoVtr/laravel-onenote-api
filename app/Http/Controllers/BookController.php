@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 
 class BookController extends Controller
@@ -13,37 +14,22 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $book =  Book::all();
+        return BookResource::collection($book);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $book = Book::create($request->validated());
+        return response(new BookResource($book), 201);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Book $book)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
     {
         //
     }

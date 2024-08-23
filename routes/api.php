@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,7 @@ Route::post('/login', [AuthController::class, "login"]);
 Route::get('/teste-api', function () {
     return ["mensagem" => 'API RODANDO, CARA!!'] ;
 });
+
+Route::apiResources([
+    'books' => BookController::class
+]);
