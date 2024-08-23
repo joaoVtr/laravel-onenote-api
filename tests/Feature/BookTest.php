@@ -13,7 +13,7 @@ class BookTest extends TestCase
     use RefreshDatabase;
     protected $baseUri = "http://127.0.0.1/api";
     
-    public function test_get_true(): void
+    public function test_get_index_true(): void
     {
         $response = $this->getJson($this->baseUri . "/books");
         // dump($response->json());
@@ -21,7 +21,7 @@ class BookTest extends TestCase
         $response->assertStatus(200);
     }
     
-    public function test_get_false(): void
+    public function test_get_index_false(): void
     {
         $response = $this->getJson($this->baseUri . "/booksHIII");
         // dump($response->json());
