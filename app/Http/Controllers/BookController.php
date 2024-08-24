@@ -14,8 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book =  Book::all();
-        return BookResource::collection($book);
+        $books =  Book::all();
+        return BookResource::collection($books);
     }
     /**
      * Store a newly created resource in storage.
@@ -30,8 +30,8 @@ class BookController extends Controller
      * Display the specified resource.
      */
     public function show(Book $book)
-    {
-        //
+    {   
+        return new BookResource($book);
     }
 
     /**
@@ -39,7 +39,11 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $data = $request->validated(); 
+
+        $book->fill($data)->save(); 
+
+        return new BookResource($book);
     }
 
     /**
@@ -47,6 +51,9 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        // $jsonMessage = ["message" => "Book ".$id." Deletado"]; 
+        // return response($jsonMessage, 200);
+        return response()->noContent();
     }
 }
