@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\NoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,6 @@ Route::get('/teste-api', function () {
 });
 
 Route::apiResources([
-    'books' => BookController::class
+    'books' => BookController::class,
+    'notes' => NoteController::class,
 ]);
