@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class BookTest extends TestCase
@@ -27,8 +28,15 @@ class BookTest extends TestCase
                 'description' => 'descricao'];
     }
 
+    public function autenticatedUser()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+    }
+
     public function test_get_index_true(): void
     {
+        $this->autenticatedUser();
         $this->initializeTestData();
         Book::factory(1)->create()->first()->id;
 
@@ -40,6 +48,7 @@ class BookTest extends TestCase
     
     public function test_get_index_false(): void
     {
+        $this->autenticatedUser();
         $response = $this->getJson($this->baseUri . "/booksHIII");
         // dump($response->json());
         // dump($response->status());
@@ -63,6 +72,7 @@ class BookTest extends TestCase
 
     public  function test_register_book_true(): void
     {
+        $this->autenticatedUser();
         $this->initializeTestData();
         $insertDataOk = $this->insertBookArr; 
 
@@ -75,6 +85,7 @@ class BookTest extends TestCase
 
     public function test_register_book_false(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         $insertDataNotOk = $this->insertBookArr; 
 
@@ -85,6 +96,7 @@ class BookTest extends TestCase
     }
     public function test_get_one_book_true(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         $this->initializeTestData();
         
@@ -98,6 +110,7 @@ class BookTest extends TestCase
 
     public function test_get_one_book_false(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         
         $response = $this->getJson($uri."/-1");
@@ -106,6 +119,7 @@ class BookTest extends TestCase
 
     public function test_update_one_book_true(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         $this->initializeTestData();
         
@@ -120,6 +134,7 @@ class BookTest extends TestCase
 
     public function test_update_one_book_error_data(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         $this->initializeTestData();
         
@@ -134,6 +149,7 @@ class BookTest extends TestCase
 
     public function test_delete_one_book_true(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         $this->initializeTestData();
         
@@ -145,6 +161,7 @@ class BookTest extends TestCase
 
     public function test_delete_one_book_false(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/books";
         $this->initializeTestData();
         

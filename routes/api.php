@@ -18,7 +18,9 @@ Route::get('/teste-api', function () {
     return ["mensagem" => 'API RODANDO, CARA!!'] ;
 });
 
-Route::apiResources([
-    'books' => BookController::class,
-    'notes' => NoteController::class,
-]);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResources([
+        'books' => BookController::class,
+        'notes' => NoteController::class,
+    ]);
+});

@@ -23,7 +23,7 @@ class NoteController extends Controller
      */
     public function store(StoreNoteRequest $request)
     {
-        //
+        return 1;
     }
 
     /**
@@ -31,7 +31,7 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        //
+        return 1;
     }
 
     /**
@@ -39,7 +39,7 @@ class NoteController extends Controller
      */
     public function update(UpdateNoteRequest $request, Note $note)
     {
-        //
+        return 1;
     }
 
     /**
@@ -47,6 +47,6 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        return 1;
     }
 }

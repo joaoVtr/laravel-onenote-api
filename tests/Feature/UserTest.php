@@ -6,13 +6,19 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
     use RefreshDatabase;
     protected $baseUri = "http://127.0.0.1/api";
-  
+   
+    public function autenticatedUser():void{
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+    }
+    
     public function test_create_user(): void
     {
        
@@ -31,6 +37,7 @@ class UserTest extends TestCase
 
     public function test_register_user(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/register";
         $response = $this->postJson($uri, [
             'email' => 'teste@eusei12.com',
@@ -43,6 +50,7 @@ class UserTest extends TestCase
     }
     public function test_register_user_fail(): void
     {
+        $this->autenticatedUser();
         $uri = $this->baseUri . "/register";
         $response = $this->postJson($uri, [
             'email' => 'teste@eusei12.com',
